@@ -48,11 +48,11 @@ def recv_channel(tty: serial.Serial, data: bytes):
             except Exception as e:
                 print(e)
                 return None
-            assert 0 <= channel <= 3
+            assert 1 <= channel <= 4
     return channel
 
 def send_channel(tty: serial.Serial, channel: int) -> None:
-    assert 0 <= channel <= 3
+    assert 1 <= channel <= 4
     print(f"Setting channel to {channel}")
     cmd = "G0{port}gA".format(port=channel).encode()
     print(f"Sending via serial: {cmd}")
