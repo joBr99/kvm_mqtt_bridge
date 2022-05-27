@@ -27,7 +27,7 @@ mqtt.on_message = on_message
 
 # setup number in ha
 print(f"Setting up {client_id} ...")
-payload = f'{{"unique_id": "{client_id}", "name": "{client_id}", "command_topic": "homeassistant/number/{client_id}/set", "state_topic": "homeassistant/switch/{client_id}/state", "min": 1, "max": 4}}'
+payload = f'{{"unique_id": "{client_id}", "name": "{client_id}", "command_topic": "homeassistant/number/{client_id}/set", "state_topic": "homeassistant/number/{client_id}/state", "min": 1, "max": 4}}'
 mqtt.publish(f"homeassistant/number/{client_id}/config", payload=payload, retain=True)
 mqtt.publish(f"homeassistant/number/{client_id}/state", 0)
 mqtt.subscribe(f"homeassistant/number/{client_id}/set")
@@ -72,7 +72,7 @@ while True:
                 print(f"Recv Channel via Serial: {channel}")
                 if current_channel != channel:
                     print(f"Publishing {client_id} state {channel} via mqtt")
-                    mqtt.publish(f"homeassistant/number/{client_id}/state", channel)
+                    mqtt.publish(f"homeassistant/number/{client_id}/state", channel, retain=True)
                     current_channel = channel
     except:
         if tty is not None:
